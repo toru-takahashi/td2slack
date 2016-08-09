@@ -40,6 +40,7 @@ put '/:template' do
   template = params[:template]
 
   begin
+    puts template
     payload = JSON.parse(request.body.read)
     @td = Hash[payload['column_names'].zip(payload['data'].transpose)]
     puts @td.inspect
