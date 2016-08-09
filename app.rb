@@ -40,12 +40,13 @@ put '/:template' do
   template = params[:template]
 
   begin
-    puts template
     payload = JSON.parse(request.body.read)
     @td = Hash[payload['column_names'].zip(payload['data'].transpose)]
     puts @td.inspect
     s = erb template.to_sym, :layout => false
-    slack_notifier(params).ping(s)
+    if template == 'example' and @td['foo'][0] == '1' then
+      slack_notifier(params).ping(s)
+    end
   rescue => e
     STDERR.puts e.backtrace
   end
