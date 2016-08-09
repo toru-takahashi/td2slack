@@ -43,6 +43,7 @@ put '/:template' do
     payload = JSON.parse(request.body.read)
     @td = Hash[payload['column_names'].zip(payload['data'].transpose)]
     puts @td.inspect
+    puts template
     s = erb template.to_sym, :layout => false
     if template == 'example' and @td['foo'][0] == '1' then
       slack_notifier(params).ping(s)
