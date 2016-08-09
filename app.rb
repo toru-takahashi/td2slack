@@ -46,6 +46,8 @@ put '/:template' do
     s = erb template.to_sym, :layout => false
     if template == 'example' and @td['foo'][0] == '1' then
       slack_notifier(params).ping(s)
+    else
+      puts @td['foo'][0]
     end
   rescue => e
     STDERR.puts e.backtrace
